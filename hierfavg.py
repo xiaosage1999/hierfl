@@ -369,6 +369,7 @@ def HierFAVG(args):
         # 每轮中心聚合的准确率指标
         correct_all_v, total_all_v = fast_all_clients_test(v_test_loader, global_nn, device)
         avg_acc_v = correct_all_v / total_all_v
+        print(f"The cloud aggregation virtual acc is {avg_acc_v}")
         writer.add_scalar(f'All_Avg_Test_Acc_cloudagg_Vtest',
                           avg_acc_v,
                           num_comm + 1)
