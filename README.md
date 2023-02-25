@@ -48,10 +48,26 @@ strings path/libstdc++.so.6 | grep GLIBCXX
 
 
 
-1. print哪些数据？
-2. 梯度，用的什么类型，具体的值？
-3. 加高斯噪声后的模型准确率
-4. 加随机响应后的模型准确率
+1. print哪些数据？每轮中心聚合后的模型准确率
+
+2. 梯度，用的什么类型，具体的值？print(dict)
+
+   ```python
+   import numpy as np
+   args={'x1':'y1','x2':'y2','x3':'y3'}
+   print(np.array(list(map(lambda x: [{x: args[x]}], args))))
+   # [[{'x1': 'y1'}]
+   #  [{'x2': 'y2'}]
+   #  [{'x3': 'y3'}]]
+   ```
+
+   
+
+3. 加高斯噪声后的模型准确率？
+
+4. 加随机响应后的模型准确率？
+
+5. 基于cifar10、mnist数据集的更多模型和更多数据集？
 
 
 
@@ -63,4 +79,58 @@ strings path/libstdc++.so.6 | grep GLIBCXX
    全局准确率 92.23%
    ```
 
-2. 
+2. cifar10 + cnn_complex
+
+   - k0: 20
+   - k1: 2
+   - k2: 3
+
+   ```python
+   python3 hierfavg.py --dataset cifar10 --model cnn_complex --num_clients 50 --num_edges 5 --frac 1 --num_local_update 3 --num_edge_aggregation 2 --num_communication 20 --batch_size 20 --iid 0 --edgeiid 1 --show_dis 0 --lr 0.01 --lr_decay 0.995 --lr_decay_epoch 1 --momentum 0 --weight_decay 0
+   ```
+
+3. mnist + logistic，
+
+   - k0: 20
+   - k1: 2
+   - k2: 3
+
+   ```python
+   python3 hierfavg.py --dataset mnist --model logistic --num_clients 50 --num_edges 5 --frac 1 --num_local_update 3 --num_edge_aggregation 2 --num_communication 20 --batch_size 20 --iid 0 --edgeiid 1 --show_dis 0 --lr 0.01 --lr_decay 0.995 --lr_decay_epoch 1 --momentum 0 --weight_decay 0
+   ```
+
+   0.4721 0.6057 0.6954 0.7396 0.7676 0.7858 0.8004 0.8105 0.8192 0.8247 0.8292 0.8329 0.8387 0.8417 0.8463 0.8486 0.8503 0.8534 0.856 0.8579
+
+4. mnist + lenet，效果差
+
+   - k0: 20
+   - k1: 2
+   - k2: 3
+
+   ```python
+   python3 hierfavg.py --dataset mnist --model lenet --num_clients 50 --num_edges 5 --frac 1 --num_local_update 3 --num_edge_aggregation 2 --num_communication 20 --batch_size 20 --iid 0 --edgeiid 1 --show_dis 0 --lr 0.01 --lr_decay 0.995 --lr_decay_epoch 1 --momentum 0 --weight_decay 0
+   ```
+
+5. 
+
+
+
+
+
+
+
+
+
+```
+```
+
+
+
+
+
+
+
+
+
+
+
